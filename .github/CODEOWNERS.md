@@ -1,1 +1,2 @@
-\*.go @dekelgustavo
+*.go @dekelgustavo
+*.go @lgustavopalmieri
