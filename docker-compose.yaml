@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  go-api:
+    build:
+      context: go
+    container_name: go-api
+    networks:
+      - go-network
+    volumes:
+      - ./go:/usr/src/app
+    tty: true
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db 
+
+  db:
+    image: mysql:5.7
+    command: --innodb-use-native-aio=0
+    container_name: db
+    restart: always
+    tty: true
+    volumes:
+      - ./mysql:/var/lib/mysql
+    ports:
+     - "3306:3306"
+    environment:
+      - MYSQL_DATABASE=godb
+      - MYSQL_ROOT_PASSWORD=password_root 
+      - MYSQL_USER=user_root 
+    networks:
+      - go-network
+
+networks:
+  go-network:
+    driver: bridge
