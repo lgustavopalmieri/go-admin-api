@@ -11,3 +11,10 @@ to generate start package and allow imports and export internal packages
 ### go get -u gorm.io/gorm
 
 ### go get -u gorm.io/driver/mysql
+
+
+### realize
+### go get github.com/oxequa/realize/realize
+
+
+### go get golang.org/x/crypto/bcrypt
