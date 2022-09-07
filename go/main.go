@@ -1,8 +1,10 @@
 package main
+
 // example
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/lgustavopalmieri/go-admin-api/go/database"
 	"github.com/lgustavopalmieri/go-admin-api/go/routes"
 )
@@ -12,7 +14,12 @@ func main() {
 
 	app := fiber.New()
 
-	routes.Setup(app)	
+	// that's important to frontend get the cookies
+	app.Use(cors.New(cors.Config{
+		AllowCredentials: true,
+	}))
 
-	app.Listen(":3000")
+	routes.Setup(app)
+
+	app.Listen(":8000")
 }

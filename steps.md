@@ -18,3 +18,5 @@ to generate start package and allow imports and export internal packages
 
 
 ### go get golang.org/x/crypto/bcrypt
+
+### go get github.com/dgrijalva/jwt-go
