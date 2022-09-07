@@ -23,7 +23,7 @@ func Register(c *fiber.Ctx) error {
 	if data["password"] != data["password_confirm"] {
 		c.Status(400)
 		return c.JSON(fiber.Map{
-			"message": "Passwords doesn't match",
+			"message": "Passwords doesn't match. Type again.",
 		})
 	}
 
@@ -51,7 +51,7 @@ func Login(c *fiber.Ctx) error {
 
 	var user models.User
 
-	// searchs for an user in database (like typeorm where)
+	// searchs for an user in database (like where in typeorm)
 	database.DB.Where("email = ?", data["email"]).First(&user)
 
 	if user.Id == 0 {
@@ -90,7 +90,7 @@ func Login(c *fiber.Ctx) error {
 	c.Cookie(&cookie)
 
 	return c.JSON(fiber.Map{
-		"message": "Succes",
+		"message": "You are logged-in.",
 	})
 }
 
@@ -108,7 +108,7 @@ func User(c *fiber.Ctx) error {
 	if err != nil || !token.Valid {
 		c.Status(fiber.StatusUnauthorized)
 		return c.JSON(fiber.Map{
-			"message": "unauthenticated",
+			"message": "You're unauthenticated.",
 		})
 	}
 
@@ -123,4 +123,17 @@ func User(c *fiber.Ctx) error {
 	// return just the id like session in Nestjs
 }
 
-//1:05
+func Logout(c *fiber.Ctx) error {
+	cookie := fiber.Cookie{
+		Name:     "jwt",
+		Value:    "",
+		Expires:  time.Now().Add(-time.Hour),
+		HTTPOnly: true,
+	}
+
+	c.Cookie(&cookie)
+
+	return c.JSON(fiber.Map{
+		"message": "See you later!",
+	})
+}
