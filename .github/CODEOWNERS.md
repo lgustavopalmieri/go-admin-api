@@ -1,1 +1,2 @@
-\*.go @dekelgustavo
+_.go @dekelgustavo
+_.Dockerfile @dekelgustavo
