@@ -9,6 +9,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/lgustavopalmieri/go-admin-api/go/database"
 	"github.com/lgustavopalmieri/go-admin-api/go/models"
+	"github.com/lgustavopalmieri/go-admin-api/go/util"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -68,12 +69,7 @@ func Login(c *fiber.Ctx) error {
 		})
 	}
 
-	claims := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.StandardClaims{
-		Issuer:    strconv.Itoa(int(user.Id)),
-		ExpiresAt: time.Now().Add(time.Hour * 24).Unix(), // expires in one day
-	})
-
-	token, err := claims.SignedString([]byte("secret"))
+	token, err := util.GenerateJwt(strconv.Itoa(int(user.Id)))
 
 	if err != nil {
 		return c.SendStatus(fiber.StatusInternalServerError)
