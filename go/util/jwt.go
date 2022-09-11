@@ -16,9 +16,10 @@ func GenerateJwt(issuer string) (string, error) {
 
 	return claims.SignedString([]byte(SecretKey))
 }
+
 //1:14:00
-func ParseJwt(){
-	token, err := jwt.ParseWithClaims(cookie, &Claims{}, func(token *jwt.Token) (interface{}, error) {
-		return []byte("secret"), nil
-	})
-}
+// func ParseJwt(){
+// 	token, err := jwt.ParseWithClaims(cookie, &Claims{}, func(token *jwt.Token) (interface{}, error) {
+// 		return []byte("secret"), nil
+// 	})
+// }
