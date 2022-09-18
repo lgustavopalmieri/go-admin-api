@@ -4,10 +4,9 @@ RUN apk update && apk add --no-cache git
 
 WORKDIR /app
 
-COPY go.mod ./
-COPY go.sum ./
+COPY go.mod go.sum ./
 
-RUN go mod install
+RUN go mod download
 
 COPY . .
 
@@ -24,4 +23,4 @@ COPY --from=builder /app/main .
 
 EXPOSE 8080
 
-CMD ["./main"]
+CMD ["./main", "."]
