@@ -14,16 +14,11 @@ services:
       - "3000:3000"
     depends_on:
       - db 
-    environment:
-      - MYSQL_DATABASE=godb
-      - MYSQL_HOST=dbname
-      - MYSQL_ROOT_PASSWORD=password_root 
-      - MYSQL_USER=user_root 
 
   db:
     image: mysql:5.7
     command: --innodb-use-native-aio=0
-    container_name: dbname
+    container_name: db
     restart: always
     tty: true
     volumes:
